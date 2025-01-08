@@ -1,68 +1,33 @@
-import React, { Suspense, lazy, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+// src/App.jsx
 import { Route, Routes } from "react-router-dom";
-import { Layout } from "./Layout";
-import { PrivateRoute } from "./PrivateRoute";
-import { RestrictedRoute } from "./RestrictedRoute";
-import { refreshUser } from "../src/redux/auth/operations";
-import { selectIsRefreshing } from "../src/redux/auth/selectors";
-import "./App.css";
+import { Layout } from "./components/Layout";
+import { lazy } from "react";
+import RestrictedRoute from "./components/RestrictedRoute";
+import PrivateRoute from "./components/PrivateRoute";
 
-// Lazy loading komponentów
-const HomePage = lazy(() => import("../src/pages/HomePage/HomePage"));
-const RegisterPage = lazy(() => import("../src/pages/RegisterPage/RegisterPage"));
-const LoginPage = lazy(() => import("../src/pages/LoginPage/LoginPage"));
-const TasksPage = lazy(() => import("../src/pages/TasksPage/TasksPage"));
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const ContactsPage = lazy(() => import("./pages/Contact/Contact"));
+const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
 
-export const App = () => {
-  const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
-
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
-
-  return isRefreshing ? (
-    <b>Refreshing user...</b>
-  ) : (
+export function App() {
+  return (
     <Layout>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          
-          {/* Restricted Route for RegisterPage */}
-          <Route
-            path="/register"
-            element={
-              <RestrictedRoute redirectTo="/tasks">
-                <RegisterPage />
-              </RestrictedRoute>
-            }
-          />
-          
-          {/* Restricted Route for LoginPage */}
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute redirectTo="/tasks">
-                <LoginPage />
-              </RestrictedRoute>
-            }
-          />
-          
-          {/* Private Route for TasksPage */}
-          <Route
-            path="/tasks"
-            element={
-              <PrivateRoute redirectTo="/login">
-                <TasksPage />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </Suspense>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/contacts"
+          element={<PrivateRoute redirectPath="/login" Component={ContactsPage} />}
+        />
+        <Route
+          path="/login"
+          element={<RestrictedRoute redirectPath="/contacts" Component={LoginPage} />}
+        />
+        <Route
+          path="/register"
+          element={<RestrictedRoute redirectPath="/contacts" Component={RegisterPage} />}
+        />
+      </Routes>
     </Layout>
   );
-};
-
-export default App;
+}

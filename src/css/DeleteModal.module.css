@@ -1,0 +1,43 @@
+.modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modaleContent {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 170px;
+  }
+  
+  .button {
+    width: 70px;
+    padding: 5px;
+    background-color: inherit;
+    border: 1px solid rgb(51, 42, 154);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: rgb(204, 204, 239);
+  }

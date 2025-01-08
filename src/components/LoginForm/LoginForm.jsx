@@ -1,81 +1,55 @@
 import { useDispatch } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup'; // Import Yup for validation
 import { logIn } from '../../redux/auth/operations';
-import styles from "../../styles/LoginForm.module.css";
-
-// Walidacja za pomocą Yup
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email('Please enter a valid email address')
-    .required('Email is required'),
-  password: Yup.string()
-    .min(6, 'Password must be at least 6 characters long')
-    .required('Password is required'),
-});
+import { useState } from 'react';
+import css from '../../css/LoginForm.module.css';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const [error, setError] = useState(null); // Przechowywanie błędu logowania
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    // Walidacja prostego emaila
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
+
+    if (!email || !password) {
+      setError("Please fill in both fields.");
+      return;
+    }
+
     dispatch(
-      logIn({
-        email: values.email,
-        password: values.password,
-      })
+      logIn({ email, password })
     )
       .unwrap()
       .then(() => {
         console.log('login success');
-        resetForm();
+        setError(null); 
       })
-      .catch(() => {
+      .catch((err) => {
         console.log('login error');
-      })
-      .finally(() => {
-        setSubmitting(false);
+        setError("Invalid email or password."); 
       });
+
+    form.reset(); // Resetowanie formularza
   };
 
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }} 
-      validationSchema={validationSchema} 
-      onSubmit={handleSubmit}
-    >
-      {({ isSubmitting }) => (
-        <Form className={styles.form} autoComplete="off">
-          <label className={styles.label}>
-            Email
-            <Field type="email" name="email" className={styles.input} />
-            <ErrorMessage name="email" component="div" className={styles.error} />
-          </label>
-          
-          <label className={styles.label}>
-            Password
-            <Field
-              type="password"
-              name="password"
-              className={styles.input}
-            />
-            <ErrorMessage
-              name="password"
-              component="div"
-              className={styles.error}
-            />
-          </label>
-          
-          <button
-            type="submit"
-            className={styles.button}
-            disabled={isSubmitting} 
-          >
-            Log In
-          </button>
-        </Form>
-      )}
-    </Formik>
+    <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
+      <label className={css.label}>
+        Email
+        <input type="email" name="email" required />
+      </label>
+      <label className={css.label}>
+        Password
+        <input type="password" name="password" required />
+      </label>
+
+      {error && <p className={css.error}>{error}</p>} {/* Wyświetlanie błędu, jeśli jest */}
+
+      <button type="submit">Log In</button>
+    </form>
   );
 };
-
-export default LoginForm;
