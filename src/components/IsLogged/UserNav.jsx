@@ -1,16 +1,15 @@
-import css from "../../css/Navigation.module.css";
-import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../../redux/operations";
-import { selectUser } from "../../redux/selectors";
-
-const buildLink = ({ isActive }) => {
-  return clsx(css.home, isActive && css.active);
-};
+import { logOut } from "../../redux/auth/operations";
+import { selectUser } from "../../redux/auth/selectors";
+import css from "../../css/Navigation.module.css";
 
 export default function UserNav() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+
+  if (!user) {
+    return null; 
+  }
 
   return (
     <div className={css.div}>

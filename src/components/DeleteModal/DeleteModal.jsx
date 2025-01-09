@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import css from "../../css/DeleteModal.module.css";
-import { deleteContact } from "../../redux/operations";
-import { closedModale } from "../../redux/openModalDelete";
-import { selectContactId } from "../../redux/selectors";
+import { deleteContact } from "../../redux/auth/operations";
+import { closedModale } from "../../redux/auth/modal";
+import { selectContactId } from "../../redux/auth/selectors";
 import toast, { Toaster } from "react-hot-toast";
 
 const succesDelete = () => toast("Contact has been removed");

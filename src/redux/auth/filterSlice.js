@@ -6,14 +6,11 @@ const slice = createSlice({
     name: "",
   },
   reducers: {
-    filtersContact: (state, action) => {
-      return {
-        ...state,
-        name: action.payload,
-      };
+    setNameFilter: (state, action) => {
+      state.name = action.payload;
     },
   },
 });
 
-export const { filtersContact } = slice.actions;
+export const { setNameFilter } = slice.actions;
 export default slice.reducer;

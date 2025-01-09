@@ -1,4 +1,3 @@
-// src/App.jsx
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { lazy } from "react";
@@ -10,6 +9,7 @@ const ContactsPage = lazy(() => import("./pages/Contact/Contact"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"));
 
+
 export function App() {
   return (
     <Layout>
@@ -17,15 +17,15 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route
           path="/contacts"
-          element={<PrivateRoute redirectPath="/login" Component={ContactsPage} />}
+          element={<PrivateRoute redirectPath="/login" element={<ContactsPage />} />}
         />
         <Route
           path="/login"
-          element={<RestrictedRoute redirectPath="/contacts" Component={LoginPage} />}
+          element={<RestrictedRoute redirectPath="/contacts" element={<LoginPage />} />}
         />
         <Route
           path="/register"
-          element={<RestrictedRoute redirectPath="/contacts" Component={RegisterPage} />}
+          element={<RestrictedRoute redirectPath="/contacts" element={<RegisterPage />} />}
         />
       </Routes>
     </Layout>

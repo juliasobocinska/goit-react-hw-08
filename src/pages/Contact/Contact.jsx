@@ -1,11 +1,11 @@
-import ContactForm from "../components/ContactForm/ContactForm.jsx";
-import SearchBox from "../components/SesrchBox/SearchBox.jsx";
-import ContactList from "../components/ContactList/ContactList.jsx";
+import ContactForm from "../../components/ContactForm/ContactForm.jsx";
+import SearchBox from "../../components/SesrchBox/SearchBox.jsx";
+import ContactList from "../../components/ContactList/ContactList.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchContacts } from "../redux/operations";
+import { fetchContacts } from "../../redux/auth/operations.js";
 import css from "./Contacts.module.css";
-import DocumentTitle from "../components/DocumentTitle.jsx";
+import DocumentTitle from "../../components/DocumentTitle.jsx";
 
 export default function Contacts() {
   const dispatch = useDispatch();

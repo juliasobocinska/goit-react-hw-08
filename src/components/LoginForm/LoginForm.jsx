@@ -3,7 +3,7 @@ import { logIn } from '../../redux/auth/operations';
 import { useState } from 'react';
 import css from '../../css/LoginForm.module.css';
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null); // Przechowywanie błędu logowania
 
@@ -53,3 +53,5 @@ export const LoginForm = () => {
     </form>
   );
 };
+
+export default LoginForm;

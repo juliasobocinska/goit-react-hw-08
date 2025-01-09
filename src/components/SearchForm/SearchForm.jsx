@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setStatusFilter } from "../redux/contactFilter"; 
+import { filtersContact } from "../../redux/auth/filterSlice"; 
 import styles from "../../css/SearchForm.module.css"; 
 
 const SearchBox = () => {
@@ -8,7 +8,7 @@ const SearchBox = () => {
   const dispatch = useDispatch();  
 
   const handleChange = (evt) => {
-    dispatch(setStatusFilter(evt.target.value)); 
+    dispatch(filtersContact(evt.target.value)); 
   };
 
   return (

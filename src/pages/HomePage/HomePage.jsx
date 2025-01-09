@@ -1,9 +1,10 @@
 import DocumentTitle from '../../components/DocumentTitle';
 
+
 export default function HomePage() {
   return (
     <>
-      <DocumentTitle>Home</DocumentTitle>
+      <DocumentTitle>HomePage</DocumentTitle>
 
       <div style={styles.container}>
         <h1 style={styles.title}>
