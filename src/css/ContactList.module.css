@@ -7,11 +7,47 @@
   .contactItem {
     display: flex;
     justify-content: space-between;
-    padding: 12px;
+    align-items: center;
+    padding: 10px;
     border-bottom: 1px solid #ccc;
     background-color: #f9f9f9;
     border-radius: 4px;
     margin-bottom: 8px;
+    flex-grow: 1;
   }
+  .editButton {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: none; 
+  }
+
   
-  
+.buttonContainer {
+  display: flex;
+  gap: 10px; 
+  align-items: center; 
+}
+
+.logoutButtonContainer {
+  text-align: center; 
+  margin-top: 20px; 
+}
+
+.logoutButton {
+  background-color: #dc3545; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logoutButton:hover {
+  background-color: #c82333; 
+}

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const modalSlice = createSlice({
-  name: "modal", 
+  name: "modaleDelete",
   initialState: {
     isModalOpen: false,
     contactId: null,

@@ -1,10 +1,9 @@
 import ContactForm from "../../components/ContactForm/ContactForm.jsx";
-import SearchBox from "../../components/SesrchBox/SearchBox.jsx";
+import SearchForm from "../../components/SearchForm/SearchForm.jsx";
 import ContactList from "../../components/ContactList/ContactList.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchContacts } from "../../redux/auth/operations.js";
-import css from "./Contacts.module.css";
 import DocumentTitle from "../../components/DocumentTitle.jsx";
 
 export default function Contacts() {
@@ -17,11 +16,11 @@ export default function Contacts() {
   return (
     <>
       <DocumentTitle>Contacts</DocumentTitle>
-      <div className={css.contacts}>
+      <div>
         <h1>Phonebook</h1>
 
         <ContactForm />
-        <SearchBox />
+        <SearchForm />
         {loading && <b>Loading contacts...</b>}
         {error && <b>{error}</b>}
         <ContactList />

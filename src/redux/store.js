@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import contactsReducer from "../redux/auth/contactSlice";
 import filtersReducer from "../redux/auth/filterSlice";
 import { AuthReducer } from "../redux/auth/authSlice";
-import modaleDeleteReducer from "../redux/auth/modal";
+import modalReducer from "../redux/auth/modal";
 import storage from "redux-persist/lib/storage";
 import {
   persistStore,
@@ -26,7 +26,7 @@ const store = configureStore({
     contacts: contactsReducer,
     filters: filtersReducer,
     auth: persistReducer(authPersistConfig, AuthReducer),
-    modaleDelete: modaleDeleteReducer,
+    modaleDelete: modalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

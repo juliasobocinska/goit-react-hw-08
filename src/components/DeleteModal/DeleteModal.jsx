@@ -1,42 +1,50 @@
 import { useDispatch, useSelector } from "react-redux";
 import css from "../../css/DeleteModal.module.css";
 import { deleteContact } from "../../redux/auth/operations";
-import { closedModale } from "../../redux/auth/modal";
-import { selectContactId } from "../../redux/auth/selectors";
-import toast, { Toaster } from "react-hot-toast";
+import { closeModal } from "../../redux/auth/modal"; 
+import { selectContactId, selectIsModalOpen } from "../../redux/auth/selectors";
+import toast from "react-hot-toast";
 
-const succesDelete = () => toast("Contact has been removed");
+const successDelete = () => toast.success("Kontakt został usunięty");
 
-export const DeleteModale = () => {
+const DeleteModal = () => {
   const dispatch = useDispatch();
+  const contactId = useSelector(selectContactId); 
+  // Sprawdzamy, czy modal jest otwarty
+  const isModalOpen = useSelector(selectIsModalOpen); 
 
-  const contactId = useSelector(selectContactId);
+   // Modal nie renderuje się, jeśli nie jest otwarty
+  if (!isModalOpen) {
+    return null;
+  }
 
   const handleDelete = () => {
-    dispatch(deleteContact(contactId));
-    dispatch(closedModale());
-    succesDelete();
+    if (contactId) {
+      dispatch(deleteContact(contactId)); 
+      dispatch(closeModal()); 
+      successDelete(); 
+    }
   };
 
-  const closedModal = () => {
-    dispatch(closedModale());
+  const handleCancel = () => {
+    dispatch(closeModal());
   };
 
   return (
     <div className={css.modal}>
       <div className={css.modaleContent}>
-        <p className={css.paragraph}>Delete that contact?</p>
+        <p className={css.paragraph}>Are you sure you want delete this contact?</p>
         <div className={css.buttons}>
           <button className={css.button} onClick={handleDelete}>
-            Yes
+            Tak
           </button>
-
-          <button className={css.button} onClick={closedModal}>
-            No
+          <button className={css.button} onClick={handleCancel}>
+            Nie
           </button>
-          <Toaster />
         </div>
       </div>
     </div>
   );
 };
+
+export default DeleteModal;

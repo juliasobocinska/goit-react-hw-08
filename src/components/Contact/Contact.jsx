@@ -1,24 +1,28 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/auth/operations";
-import styles from "../../css/Contact.module.css"; 
+import { openModal } from "../../redux/auth/modal"; 
+import styles from "../../css/Contact.module.css";
 
-const Contact = ({ id, name, number }) => {
+const Contact = ({ contactId, name, number, onDelete }) => {
   const dispatch = useDispatch();
 
+  // Funkcja otwierająca modal (przekazujemy contactId)
   const handleDelete = () => {
-    dispatch(deleteContact(id));
+    // Otwieramy modal, przekazując contactId
+    dispatch(openModal(contactId)); 
   };
 
   return (
-    <li className={styles.contactItem}>
+    <div className={styles.contactItem}> 
       <span className={styles.contactInfo}>
         {name} {number}
       </span>
+      <div className={styles.buttonContainer}>
       <button onClick={handleDelete} className={styles.deleteButton}>
         Delete
       </button>
-    </li>
+      </div>
+    </div>
   );
 };
 

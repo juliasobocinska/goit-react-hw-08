@@ -5,7 +5,7 @@ import css from '../../css/LoginForm.module.css';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const [error, setError] = useState(null); // Przechowywanie błędu logowania
+  const [error, setError] = useState(null); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ const LoginForm = () => {
         setError("Invalid email or password."); 
       });
 
-    form.reset(); // Resetowanie formularza
+    form.reset(); 
   };
 
   return (
@@ -47,7 +47,7 @@ const LoginForm = () => {
         <input type="password" name="password" required />
       </label>
 
-      {error && <p className={css.error}>{error}</p>} {/* Wyświetlanie błędu, jeśli jest */}
+      {error && <p className={css.error}>{error}</p>} 
 
       <button type="submit">Log In</button>
     </form>

@@ -1,38 +1,61 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/auth/operations"; 
+import { Link } from "react-router-dom";
+import { openModal } from "../../redux/auth/modal"; 
+import { logOut } from "../../redux/auth/operations"; 
 import Contact from "../Contact/Contact"; 
-import styles from "../../css/ContactList.module.css"; 
+import styles from "../../css/ContactList.module.css";
 
 const ContactList = () => {
   const contacts = useSelector((state) => state.contacts.items); 
   const filter = useSelector((state) => state.filters.name); 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
+  // Filtracja kontaktów na podstawie nazwiska lub numeru telefonu
   const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
+    contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+    contact.number.includes(filter)
   );
 
-  const handleDelete = (id) => {
-    dispatch(deleteContact(id)); 
+  // Usuwanie duplikatów kontaktów 
+  const uniqueContacts = Array.from(
+    new Map(filteredContacts.map(contact => [contact.number, contact])).values()
+  );
+
+  // Funkcja otwierająca modal
+  const handleDelete = (contactId) => {
+    dispatch(openModal(contactId)); 
+  };
+
+  // Funkcja wylogowująca
+  const handleLogout = () => {
+    dispatch(logOut()); 
   };
 
   return (
-    <ul className={styles.contactList}>
-      {filteredContacts.map((contact) => (
-        <Contact
-        
-  key={`${contact.id}-${contact.number}-${contact.createdAt}`} 
-  id={contact.id}      
-  name={contact.name}  
-  number={contact.number}
-  onDelete={handleDelete} 
-  className={styles.contactItem} 
-/>
-
-        
+    <div className={styles.contactListContainer}>
+      {uniqueContacts.map((contact) => (
+        <div key={contact.id} className={styles.contactItem}>
+          <Contact
+            contactId={contact.id}
+            name={contact.name}
+            number={contact.number}
+            onDelete={() => handleDelete(contact.id)}
+          />
+          <div className={styles.buttonContainer}>
+            <Link to={`/contacts/edit/${contact.id}`} className={styles.editButton}>
+              Edit
+            </Link>
+          </div>
+        </div>
       ))}
-    </ul>
+      
+      <div className={styles.logoutButtonContainer}>
+        <button className={styles.logoutButton} onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    </div>
   );
 };
 

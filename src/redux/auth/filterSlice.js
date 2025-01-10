@@ -12,5 +12,8 @@ const slice = createSlice({
   },
 });
 
+// Dodajemy selektor, aby uzyskać dostęp do wartości name w stanie
+export const selectNameFilter = (state) => state.filters.name;
+
 export const { setNameFilter } = slice.actions;
 export default slice.reducer;

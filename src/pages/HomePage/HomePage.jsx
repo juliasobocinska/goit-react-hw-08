@@ -6,9 +6,9 @@ export default function HomePage() {
     <>
       <DocumentTitle>HomePage</DocumentTitle>
 
-      <div style={styles.container}>
-        <h1 style={styles.title}>
-          Task manager welcome page{' '}
+      <div>
+        <h1>
+          Welcome page{' '}
           <span role="img" aria-label="Greeting icon">
             💁‍♀️
           </span>
